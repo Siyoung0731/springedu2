@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmls:th="http://thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>방명록 작성 화면</title>
+</head>
+<body>
+<form action="/vinsert" method="post">
+  <input type="text" name="name" placeholder="이름을 입력하세요." required><br>
+  <textarea name="memo" cols="35" rows="10" placeholder="내용을 입력하세요." required></textarea><br>
+  <input type="submit" value="등록">
+</form>
+</body>
+</html>

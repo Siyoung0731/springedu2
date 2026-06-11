@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmls:th="http://thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+</head>
+<body>
+<a href="/vlist"><button>방명록 보기</button></a>
+<a href="/visitorForm.html"><button>방명록 작성</button></a>
+
+<form action="/vsearch" method="get">
+    <input type="text" name="key" placeholder="검색어를 입력하세요.">
+    <input type="submit" value="방명록 검색">
+</form>
+<a href="/meeting"><button>미팅 스케줄 관리</button></a>
+</body>
+</html>
