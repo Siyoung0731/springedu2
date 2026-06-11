@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmls:th="http://thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>방명록 목록</title>
 </head>
 <body>
-$END$
+  <table>
+    <tr th:each="vo : ${visitors}">
+      <td>[[${vo.name}]]</td>
+      <td>[[${vo.writeDate}]]</td>
+      <td>[[${vo.memo}]]</td>
+    </tr>
+  </table>
 </body>
 </html>
