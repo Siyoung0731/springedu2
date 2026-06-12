@@ -3,13 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>방명록 목록</title>
+  <link rel="stylesheet" href="css/visitor.css">
 </head>
 <body>
   <table>
-    <tr th:each="vo : ${visitors}">
-      <td>[[${vo.name}]]</td>
-      <td>[[${vo.writeDate}]]</td>
-      <td>[[${vo.memo}]]</td>
+    <tr>
+      <td>작성자</td>
+      <td>작성일</td>
+      <td>작성내용</td>
+    </tr>
+    <tr th:each="vt : ${visitors}">
+      <td>[[${vt.name}]]</td>
+      <td>[[${vt.writeDate}]]</td>
+      <td>[[${vt.memo}]]</td>
     </tr>
   </table>
 </body>

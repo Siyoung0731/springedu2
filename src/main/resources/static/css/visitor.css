@@ -1,0 +1,31 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'CookieRunOTF Reqular';
+    src: url("../fonts/CookieRun Regular.otf") format("opentype");
+    font-style: normal;
+    font-weight: normal;
+}
+* {
+    font-family: 'CookieRunOTF Reqular';
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+}
+h1 {
+    text-shadow: 2px 2px 5px lime;
+    font-size : 3em;
+}
+textarea {
+    margin: 10px;
+}
+table {
+    width: 40%;
+    height: 40px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    td {
+        border: 1px solid black;
+    }
+}
