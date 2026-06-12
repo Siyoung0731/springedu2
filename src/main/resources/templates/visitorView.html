@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmls:th="http://thymeleaf.org" xmlns:xmls="http://www.w3.org/1999/xhtml">
+<html lang="kr" xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>방명록 목록</title>
   <link rel="stylesheet" href="css/visitor.css">
 </head>
 <body>
+  <h1>방명록</h1>
   <table>
     <tr>
       <td>작성자</td>
@@ -16,7 +17,32 @@
       <td>[[${vt.name}]]</td>
       <td>[[${vt.writeDate}]]</td>
       <td>[[${vt.memo}]]</td>
+      <td>
+        <form th:action="@{/vdelete}"
+              onsubmit="return confirm('삭제하시겠습니까?')" method="post">
+          <input type="hidden" name="id" th:value="${vt.id}" />
+          <button type="submit">
+            <img src="/img/delete.png" width="30" alt="삭제">
+          </button>
+        </form>
+      </td>
+      <td>
+        <img src="/img/edit.png" width="30" alt="수정"
+          th:onclick="|displayUpdateForm(${vt.id})|">
+      </td>
     </tr>
   </table>
+  <div>
+    <h3 th:if="${msg}" th:text="${msg}"></h3>
+    <hr />
+    <a href="/visitorMain.html"><button>메인페이지로 돌아가기</button></a>
+  </div>
+  <script>
+    function displayUpdateForm(id) {
+        console.log("수정할 번호: " + id);
+
+        location.href = "/vupdate/" + id;
+    }
+  </script>
 </body>
 </html>

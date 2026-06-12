@@ -3,6 +3,7 @@ package com.example.springedu2.controller;
 import com.example.springedu2.entity.Visitor;
 import com.example.springedu2.repository.VisitorRepository;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,18 +20,41 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class VisitorController {
-    @Autowired
-    VisitorRepository visitorRepository;
+
+    // 1. Autowired 이용 생성자 주입
+    //@Autowired
+    //private VisitorRepository visitorRepository;
+
+/*    // 2. 생성자 주입 : 최신 문법
+    public VisitorController(VisitorRepository visitorRepository) {
+        this.visitorRepository = visitorRepository;
+    }
+    private VisitorRepository visitorRepository;*/
+
+    // 3. 생성자 주입 다른 방법, final 가능
+    // @RequireArgsConstructor 필수 -> 단점 : Lombok 필수!
+    private final VisitorRepository visitorRepository;
 
     //목록 조회
     @GetMapping("/vlist")
     public ModelAndView list() {
-        List<Visitor> visitors = visitorRepository.findAll();
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("visitorView");
-        mv.addObject("visitors", visitors);
-        mv.addObject("msg", null);
+        List<Visitor> visitors = visitorRepository.findAll();           // 전체 목록 조회
+        return visitorView(visitors, null);
+    }
+    // visitorView 함수
+    private ModelAndView visitorView(List<Visitor> visitors, String buttonText) {
+        ModelAndView mv = new ModelAndView("visitorView");
+        //mv.setViewName("visitorView");            //visitorView.html(Model 사용) - thymeleaf
+        if(visitors.isEmpty()) {
+            mv.addObject("msg", "조회된 결과가 없습니다.");
+        } else {
+            mv.addObject("visitors", visitors);
+        }
+        if(buttonText != null) {
+            mv.addObject("buttonText", buttonText);
+        }
         return mv;
     }
 
@@ -80,7 +104,7 @@ public class VisitorController {
     // 메서드로 Attributes 를 전달하는데 이용한다. -> 필요할 때 : redirect 를 하여 변경된 값을 넘겨줄 때
     // addAttribute : 브라우저의 주소창에 보이게 URL에 추가하여 정보 전달
     // addFlashAttributes : 세션에 저장되고 오직 다음 요청에서만 접근 가능
-    @PostMapping("/vupdate")
+    @PostMapping("/vupdate/{id}")
     @Transactional
     public String update(@Valid Visitor visitor,
                          BindingResult bindingResult,
@@ -98,7 +122,7 @@ public class VisitorController {
     }
 
     //삭제
-    @PostMapping("/vdelete")
+    @GetMapping("/vdelete")
     @Transactional
     public String delete(@RequestParam Integer id,
                          RedirectAttributes redirectAttributes) {
