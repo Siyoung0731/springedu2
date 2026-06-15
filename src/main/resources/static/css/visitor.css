@@ -1,12 +1,22 @@
 @charset "UTF-8";
+
 @font-face {
-    font-family: 'CookieRunOTF Reqular';
-    src: url("../fonts/CookieRun Regular.otf") format("opentype");
-    font-style: normal;
-    font-weight: normal;
+    font-family: 'CookieRunRegular';
+    src: url('../fonts/CookieRun Regular.otf') format('opentype');
 }
+
+@font-face {
+    font-family: 'CookieRunBold';
+    src: url('../fonts/CookieRun Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'CookieRunBlack';
+    src: url('../fonts/CookieRun Black.otf') format('opentype');
+}
+
 * {
-    font-family: 'CookieRunOTF Reqular';
+    font-family: 'CookieRunRegular', sans-serif;
     box-sizing: border-box;
 }
 
@@ -15,37 +25,8 @@ body {
 }
 h1 {
     text-shadow: 2px 2px 5px lime;
-    font-size : 3em;
+    font-size: 3em;
 }
 textarea {
     margin: 10px;
-}
-table {
-    width: auto;
-    margin: 0 auto;
-    border: 1px solid black;
-    border-collapse: collapse;
-    td {
-        border-bottom: 1px dotted black;
-        padding: 10px;
-        text-align: left;
-    }
-    tr:hover {
-        background-color: aliceblue;
-    }
-    td:nth-of-type(1) {width: 80px;}
-    td:nth-of-type(2) {width: 120px;}
-    div {
-        margin: 10px auto;
-        padding: 50px;
-        background: linear-gradient(to bottom, #33ccff 0%, #00ccff 100%);
-        width: 800px;
-        border-radius: 5px;
-    }
-    .icon-button {
-        border: 0;
-        background: transparent;
-        cursor: pointer;
-        padding: 0;
-    }
 }
