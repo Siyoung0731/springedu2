@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Springedu2Application {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(Springedu2Application.class, args);
     }
 }
