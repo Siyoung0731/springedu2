@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 관리</title>
+    <link rel="stylesheet" href="/css/visitor.css">
+    <style>
+        .wrap { width: 960px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 12px; border: 1px solid #ddd; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        .msg { color: #dc2626; }
+        form { display: inline; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>회원관리</h1>
+    <p class="msg" th:if="${msg}" th:text="${msg}"></p>
+    <p>
+        <a th:href="@{/admin/members/new}">회원추가</a>
+        <a th:href="@{/visitorMain}">방명록으로</a>
+        <a th:href="@{/members/me}">내 정보</a>
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>아이디</td>
+                <td>이름</td>
+                <td>이메일</td>
+                <td>권한</td>
+                <td>사용</td>
+                <td>관리</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${memberList}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.username}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.role}"></td>
+            <td th:text="${member.enabled ? 'Y' : 'N'}"></td>
+            <td>
+                <a th:href="@{/admin/members/{id}/edit(id=${member.id})}"><button>수정</button></a>
+                <form method="post" th:action="@{/admin/members/{id}/delete(id=${member.id})}"
+                onsubmit="return confirm('삭제하시겠습니까?')">
+                    <button type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

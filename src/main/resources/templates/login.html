@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/visitor.css" />
+    <style>
+        .box { width: 420px; margin: 40px auto; padding: 24px; border: 1px solid #ddd; border-radius: 12px; background: #fff; }
+        label { display: block; margin: 12px 0; }
+        input { width: 100%; padding: 10px; box-sizing: border-box; }
+        button { padding: 10px 16px; margin-top: 10px; }
+        .msg { color: #2563eb; }
+        .error { color: #dc2626; }
+        .hint { background: #f3f4f6; padding: 10px; border-radius: 8px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>로그인</h1>
+        <!-- th:text 사용안 할 경우 -> [[${msg}]] -->
+        <p class="msg" th:if="${msg}" th:text="${msg}"></p>
+        <p class="error" th:if="${param.error}">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+        <p class="msg" th:if="${param.logout}">로그아웃되었습니다.</p>
+
+        <form th:action="@{/login}" method="post">
+            <label>아이디
+                <input type="text" name="username" placeholder="admin" autofocus required />
+            </label>
+            <label>비밀번호
+                <input type="password" name="password" placeholder="admin1234" required />
+            </label>
+            <button type="submit">로그인</button>
+        </form>
+        <hr />
+        <div class="hint">
+            <strong>초기계정</strong><br>
+            관리자: admin / admin1234<br>
+            일반 사용자: user / user1234<br>
+            손님 : guest / guest<br>
+        </div>
+        <p>
+            <a th:href="@{/members/register}">회원가입</a> |
+            <a th:href="@{/index.html}">홈으로</a>
+        </p>
+    </div>
+</body>
+</html>
