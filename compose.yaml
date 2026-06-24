@@ -1,48 +1,77 @@
+#services:
+#  mysql-container:
+#    image: siyoung0731/buildmysql:1.0
+#    container_name: mysql-container
+#    restart: unless-stopped
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 1234
+#      MYSQL_DATABASE: edudb
+#      MYSQL_USER: jdbctest
+#      MYSQL_PASSWORD: jdbctest
+#      TZ: Asia/Seoul
+#    volumes:
+#      - springedu2-mysql-data:/var/lib/mysql
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "jdbctest", "-pjdbctest"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+#      start_period: 30s
+#    networks:
+#      - springboot-mysql-net
+
+#  springedu2-container:
+#    image: siyoung0731/csyspringedu2:1.0
+#    container_name: springedu2-container
+#    restart: unless-stopped
+#    ports:
+#      - "9090:9090"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/edudb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+#      SPRING_DATASOURCE_USERNAME: jdbctest
+#      SPRING_DATASOURCE_PASSWORD: jdbctest
+#    depends_on:
+#      mysql-container:
+#        condition: service_healthy
+#    networks:
+#      - springboot-mysql-net
+#
+#volumes:
+#  springedu2-mysql-data:
+#    name: springedu2-mysql-data
+#
+#networks:
+#  springboot-mysql-net:
+#    name: springboot-mysql-net
+#    driver: bridge
+
+version: '3.8' # 도커 컴포즈의 버전 규격입니다.
+
 services:
-  mysql-container:
-    image: siyoung0731/buildmysql:1.0
-    container_name: mysql-container
+  postgres-container:
+    image: postgres:15
+    container_name: postgres-container
     restart: unless-stopped
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: edudb
-      MYSQL_USER: jdbctest
-      MYSQL_PASSWORD: jdbctest
+      POSTGRES_DB: postgre
+      POSTGRES_USER: spring
+      POSTGRES_PASSWORD: 1234
       TZ: Asia/Seoul
     volumes:
-      - springedu2-mysql-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "jdbctest", "-pjdbctest"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
+      - springedu2-postgres-data:/var/lib/postgresql/data
     networks:
-      - springboot-mysql-net
+      - springboot-postgres-net
 
-  springedu2-container:
-    image: siyoung0731/csyspringedu2:1.0
-    container_name: springedu2-container
-    restart: unless-stopped
-    ports:
-      - "9090:9090"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/edudb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: jdbctest
-      SPRING_DATASOURCE_PASSWORD: jdbctest
-    depends_on:
-      mysql-container:
-        condition: service_healthy
-    networks:
-      - springboot-mysql-net
+# --- 여기가 가장 중요합니다! (건물 밑바닥 공사) ---
+# 위에서 언급한 창고 이름과 네트워크 이름을 도면 맨 밑에 반드시 선언해 주어야 합니다.
 
 volumes:
-  springedu2-mysql-data:
-    name: springedu2-mysql-data
+  springedu2-postgres-data:
 
 networks:
-  springboot-mysql-net:
-    name: springboot-mysql-net
+  springboot-postgres-net:
     driver: bridge

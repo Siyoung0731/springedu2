@@ -24,7 +24,7 @@
         -->
         <form th:action="@{/members/register}" th:object="${memberForm}" method="post">
             <div class="error" th:if="${#fields.hasGlobalErrors()}"
-                th:each="err : ${#fields.hasGlobalErrors()}"
+                th:each="err : ${#fields.globalErrors()}"
                 th:text="${err}"></div>
             <label>아이디
                 <input type="text" th:field="*{username}" placeholder=" 4자 이상" required>

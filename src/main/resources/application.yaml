@@ -5,15 +5,27 @@ spring:
   application:
     name: springedu2
 
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/edudb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+#    # url: jdbc:mysql://mysql-container:3306/edudb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+#    username: jdbctest
+#    password: jdbctest
+#  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@//localhost:1521/XE
+#    username: spring
+#    password: 1234
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/edudb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
-    # url: jdbc:mysql://mysql-container:3306/edudb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
-    username: jdbctest
-    password: jdbctest
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgre
+    username: spring
+    password: 1234
+
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
